@@ -25,6 +25,10 @@ const ReportSchema = new Schema({
     suggestions:{
         type:String,
     },
+    status:{
+        type:String,
+        required:true
+    }
 });
 
 export const Report = mongoose.model('Report',ReportSchema);
