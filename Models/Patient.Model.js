@@ -24,6 +24,9 @@ const PatientSchema = new Schema({
     emergency_contact:{
         type:String,
     },
+    profile_picture:{
+        type:String,
+    },
     address:{
         type:String,
         required:true
@@ -33,9 +36,6 @@ const PatientSchema = new Schema({
         required:true
     },
     allergies:[{
-        type:String,
-    }],
-    medications:[{
         type:String,
     }],
     appointments:[{
@@ -52,7 +52,7 @@ const PatientSchema = new Schema({
     }],
 });
 
-const Patient = mongoose.model('Patient',PatientSchema);
+export const Patient = mongoose.model('Patient',PatientSchema);
 
 
 
