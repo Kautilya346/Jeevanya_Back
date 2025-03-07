@@ -38,18 +38,6 @@ const PatientSchema = new Schema({
     allergies:[{
         type:String,
     }],
-    appointments:[{
-        type:Schema.Types.ObjectId,
-        ref:'Appointment'
-    }],
-    reports:[{
-        type:Schema.Types.ObjectId,
-        ref:'Report'
-    }],
-    prescriptions:[{
-        type:Schema.Types.ObjectId,
-        ref:'Prescription'
-    }],
 });
 
 export const Patient = mongoose.model('Patient',PatientSchema);
