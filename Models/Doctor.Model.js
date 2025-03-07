@@ -3,7 +3,7 @@ import mongoose,{Schema} from 'mongoose';
 const DoctorSchema = new Schema({
     hospitalId:{
         type:String,
-        required:true
+        //required:true
     },
     name:{
         type:String,
@@ -25,7 +25,7 @@ const DoctorSchema = new Schema({
         type: String,
         default: "",
     },
-    licenceNumber:{
+    licenseNumber:{
         type:String,
         required:true
     },

@@ -4,12 +4,14 @@ import connectDB from "./Utils/db.js";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import authRoutes from "./Routes/User.Routes.js";
 
 const app = express();
 dotenv.config();
 connectDB();
 const PORT = 3000;
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(cookieParser());
@@ -31,6 +33,8 @@ app.use(
   })
 );
 app.options("*", cors());
+
+app.use("/api/auth",authRoutes)
 
 // Middleware
 app.use(bodyParser.json());

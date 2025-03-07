@@ -5,6 +5,10 @@ const PatientSchema = new Schema({
         type:String,
         required:true
     },
+    password:{
+        type:String,
+        required:true
+    },
     date_of_birth:{
         type:Date,
         required:true
@@ -29,13 +33,15 @@ const PatientSchema = new Schema({
     },
     address:{
         type:String,
-        required:true
     },
     blood_group:{
         type:String,
         required:true
     },
     allergies:[{
+        type:String,
+    }],
+    medicalHistory:[{
         type:String,
     }],
 });
