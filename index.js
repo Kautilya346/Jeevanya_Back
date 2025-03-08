@@ -31,15 +31,14 @@ app.use(
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"], 
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.options("*", cors());
 
-app.use("/api/auth",authRoutes)
-app.use("/api/doctor",doctorRoutes)
-app.use("/api/report",reportRoutes)
-
+app.use("/api/auth", authRoutes);
+app.use("/api/doctor", doctorRoutes);
+app.use("/api/report", reportRoutes);
 
 // Middleware
 app.use(bodyParser.json());
