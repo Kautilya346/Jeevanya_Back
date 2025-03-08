@@ -9,6 +9,7 @@ import doctorRoutes from "./Routes/Doctor.Routes.js";
 import reportRoutes from "./Routes/Report.Routes.js";
 import chatRoutes from "./Controllers/Chat.Controller.js"
 import http from "http";
+import { Message } from "./Models/Message.Model.js";
 import {Server} from "socket.io";
 
 const app = express();
@@ -75,6 +76,6 @@ app.use("/api/chat", chatRoutes);
 app.use(bodyParser.json());
 
 // Server
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);
 });
