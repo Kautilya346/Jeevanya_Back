@@ -7,6 +7,7 @@ import cors from "cors";
 import authRoutes from "./Routes/User.Routes.js";
 import doctorRoutes from "./Routes/Doctor.Routes.js";
 import reportRoutes from "./Routes/Report.Routes.js";
+import patientRoutes from "./Routes/PatientMedical.Routes.js";
 
 const app = express();
 dotenv.config();
@@ -39,6 +40,7 @@ app.options("*", cors());
 app.use("/api/auth", authRoutes);
 app.use("/api/doctor", doctorRoutes);
 app.use("/api/report", reportRoutes);
+app.use("/api/patient", patientRoutes);
 
 // Middleware
 app.use(bodyParser.json());
