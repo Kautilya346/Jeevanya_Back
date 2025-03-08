@@ -7,10 +7,11 @@ import cors from "cors";
 import authRoutes from "./Routes/User.Routes.js";
 import doctorRoutes from "./Routes/Doctor.Routes.js";
 import reportRoutes from "./Routes/Report.Routes.js";
-import chatRoutes from "./Controllers/Chat.Controller.js"
+import patientRoutes from "./Routes/PatientMedical.Routes.js";
+import chatRoutes from "./Controllers/Chat.Controller.js";
 import http from "http";
 import { Message } from "./Models/Message.Model.js";
-import {Server} from "socket.io";
+import { Server } from "socket.io";
 
 const app = express();
 dotenv.config();
@@ -44,25 +45,25 @@ app.options("*", cors());
 
 const server = http.createServer(app);
 const io = new Server(server, {
-    cors: {
-      origin: "*",
-    },
+  cors: {
+    origin: "*",
+  },
 });
 
 io.on("connection", (socket) => {
-    console.log("A user connected:", socket.id);
-  
-    socket.on("sendMessage", async (data) => {
-      const { sender, receiver, message } = data;
-      const newMessage = new Message({ sender, receiver, message });
-      await newMessage.save();
-  
-      io.emit("receiveMessage", newMessage);
-    });
-  
-    socket.on("disconnect", () => {
-      console.log("User disconnected:", socket.id);
-    });
+  console.log("A user connected:", socket.id);
+
+  socket.on("sendMessage", async (data) => {
+    const { sender, receiver, message } = data;
+    const newMessage = new Message({ sender, receiver, message });
+    await newMessage.save();
+
+    io.emit("receiveMessage", newMessage);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected:", socket.id);
+  });
 });
 
 // Routes
@@ -70,6 +71,7 @@ io.on("connection", (socket) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/doctor", doctorRoutes);
 app.use("/api/report", reportRoutes);
+app.use("/api/patient", patientRoutes);
 app.use("/api/chat", chatRoutes);
 
 // Middleware
