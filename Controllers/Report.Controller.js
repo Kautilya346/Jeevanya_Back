@@ -53,6 +53,24 @@ async function setFirstReport(req, res) {
   }
 }
 
+async function getpatients(req, res) {
+    const user = req.user;
+    console.log("karanwal",user)
+  try {
+    const report = await Report.find({doctor:user._id}).populate("patient");
+    res.status(200).json({
+      success: true,
+      report,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch patients.",
+      error: error.message,
+    });
+  }
+}
+
 async function getReport(req, res) {
   try {
     const { reportId } = req.params;
@@ -79,4 +97,4 @@ async function getReport(req, res) {
 }
 
 // Export function
-export { setFirstReport, getReport, getReportbyUser };
+export { setFirstReport, getReport, getReportbyUser, getpatients };

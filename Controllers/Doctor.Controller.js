@@ -48,5 +48,23 @@ async function getAllDomainDoctors(req, res) {
   }
 }
 
+async function getdocprofile(req, res) {
+  try {
+    const docID = req.user;
+    const doctor = await Doctor.findById(docID);
+    // console.log(doctor)
+    res.status(200).json({
+      success: true,
+      doctor,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch doctor.",
+      error: error.message,
+    });
+  }
+}
+
 // Export both functions correctly
-export { getAllDoctors, getAllDomainDoctors };
+export { getAllDoctors, getAllDomainDoctors, getdocprofile };
