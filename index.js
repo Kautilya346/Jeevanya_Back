@@ -9,6 +9,7 @@ import doctorRoutes from "./Routes/Doctor.Routes.js";
 import reportRoutes from "./Routes/Report.Routes.js";
 import patientRoutes from "./Routes/PatientMedical.Routes.js";
 import chatRoutes from "./Controllers/Chat.Controller.js";
+import communityRoutes from "./Routes/Community.Routes.js";
 import http from "http";
 import { Message } from "./Models/Message.Model.js";
 import { Server } from "socket.io";
@@ -73,7 +74,7 @@ app.use("/api/doctor", doctorRoutes);
 app.use("/api/report", reportRoutes);
 app.use("/api/patient", patientRoutes);
 app.use("/api/chat", chatRoutes);
-
+app.use("/api/forum/", communityRoutes);
 // Middleware
 app.use(bodyParser.json());
 
