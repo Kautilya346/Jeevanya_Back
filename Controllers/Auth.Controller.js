@@ -153,6 +153,7 @@ const loginPatient = async (req, res) => {
 
 export const registerDoctor = async (req, res) => {
     const { hospitalId, name, gender, phone_number, email, profilePicture, licenseNumber, speciality, password } = req.body;
+    console.log("HIHIH",req.body);
 
     try {
         const existingDoctor = await Doctor.findOne({ licenseNumber });
@@ -160,11 +161,14 @@ export const registerDoctor = async (req, res) => {
             return res.status(400).json({ message: 'Doctor already exists' });
         }
 
-        const newDoctor = new Doctor({ hospitalId, name, gender, phone_number, email, profilePicture, licenseNumber, speciality, password });
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newDoctor = new Doctor({ hospitalId, name, gender, phone_number, email, profilePicture, licenseNumber, speciality, password:hashedPassword });
         await newDoctor.save();
 
         res.status(201).json({ message: 'Doctor registered successfully' });
     } catch (error) {
+        console.log(error);
         res.status(500).json({ message: 'Something went wrong' });
     }
 };
@@ -172,7 +176,6 @@ export const registerDoctor = async (req, res) => {
 export const loginDoctor = async (req, res) => {
     try {
         const { licenseNumber, password } = req.body;
-
         if ([licenseNumber, password].some((f) => f?.trim() === "")) {
             return res.status(400).json({
                 msg: "All fields are required"
@@ -180,6 +183,8 @@ export const loginDoctor = async (req, res) => {
         }
 
         const doctor = await Doctor.findOne({ licenseNumber });
+        console.log("first",password,doctor.password);
+
         if (!doctor) {
             return res.status(404).json({
                 msg: "Doctor not found"
