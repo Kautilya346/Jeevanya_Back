@@ -1,7 +1,7 @@
 import { Patient } from "../Models/Patient.Model.js";
 import jwt from "jsonwebtoken"
 
-export async function verifyToken(req,res,next){
+export async function verifyPatientToken(req,res,next){
     
     const currAccessToken = req.cookies?.accessToken;
 
