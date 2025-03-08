@@ -12,6 +12,34 @@ import { Patient } from "../Models/Patient.Model.js";
     }
 };
 
+async function setDetails(req, res) {
+    try {
+        const {reportId} = req.params;
+        console.log(reportId)
+        const report = await Report.findById(reportId);
+        console.log(report)
+        if (!report) {
+            return res.status(404).json({
+                success: false,
+                message: "Report not found.",
+            });
+        }
+        report.medications = req.body.medications;
+        report.diagnosis = req.body.diagnosis;
+        await report.save();
+        res.status(200).json({
+            success: true,
+            message: "Report updated successfully.",
+            report,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to update report.",
+            error: error.message,
+        });
+    }
+}
 // Save first report (POST request)
 async function setFirstReport(req, res) {
   try {
@@ -98,4 +126,4 @@ async function getReport(req, res) {
 }
 
 // Export function
-export { setFirstReport, getReport, getReportbyUser, getpatients };
+export { setFirstReport, getReport,setDetails, getReportbyUser, getpatients };

@@ -1,11 +1,12 @@
 import express from "express";
-import { setFirstReport, getReport, getReportbyUser, getpatients } from "../Controllers/Report.Controller.js"; // Fixed function name
+import { setFirstReport, getReport, getReportbyUser, getpatients, setDetails } from "../Controllers/Report.Controller.js"; // Fixed function name
 import { verifyPatientToken,verifyDoctorToken } from "../Utils/Token.middleware.js";
 
 const router = express.Router();
 
 router.get("/getreportbyuser",verifyPatientToken, getReportbyUser);
-router.get("/getpatients",verifyPatientToken, getpatients)
+router.get("/getpatients",verifyDoctorToken, getpatients)
+router.post("/setdetails/:reportId",setDetails);
 
 // Correctly define the POST route
 router.post("/setFirstreport", verifyPatientToken, setFirstReport);
