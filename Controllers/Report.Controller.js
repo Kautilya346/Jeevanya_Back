@@ -43,5 +43,30 @@ async function setFirstReport(req, res) {
   }
 }
 
+async function getReport(req, res) {
+  try {
+    const { reportId } = req.params;
+    const report = await Report.findById(reportId).populate("doctor patient");
+
+    if (!report) {
+      return res.status(404).json({
+        success: false,
+        message: "Report not found.",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      report,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch report.",
+      error: error.message,
+    });
+  }
+}
+
 // Export function
-export { setFirstReport };
+export { setFirstReport, getReport };
