@@ -7,6 +7,9 @@ import cors from "cors";
 import authRoutes from "./Routes/User.Routes.js";
 import doctorRoutes from "./Routes/Doctor.Routes.js";
 import reportRoutes from "./Routes/Report.Routes.js";
+import chatRoutes from "./Controllers/Chat.Controller.js"
+import http from "http";
+import {Server} from "socket.io";
 
 const app = express();
 dotenv.config();
@@ -36,9 +39,37 @@ app.use(
 );
 app.options("*", cors());
 
+//Socket io configuration
+
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+      origin: "*",
+    },
+});
+
+io.on("connection", (socket) => {
+    console.log("A user connected:", socket.id);
+  
+    socket.on("sendMessage", async (data) => {
+      const { sender, receiver, message } = data;
+      const newMessage = new Message({ sender, receiver, message });
+      await newMessage.save();
+  
+      io.emit("receiveMessage", newMessage);
+    });
+  
+    socket.on("disconnect", () => {
+      console.log("User disconnected:", socket.id);
+    });
+});
+
+// Routes
+
 app.use("/api/auth", authRoutes);
 app.use("/api/doctor", doctorRoutes);
 app.use("/api/report", reportRoutes);
+app.use("/api/chat", chatRoutes);
 
 // Middleware
 app.use(bodyParser.json());
