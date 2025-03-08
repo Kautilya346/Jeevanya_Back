@@ -4,7 +4,7 @@ import { Patient } from "../Models/Patient.Model.js";
 
  async function getReportbyUser(req, res) {
     try {
-        const reports = await Report.find({ patient: req.user._id });
+        const reports = await Report.find({ patient: req.user._id }).populate("doctor");
         res.status(200).json(reports);
     } catch (error) {
         console.log(error);
