@@ -1,11 +1,6 @@
 import { Patient } from "../Models/Patient.Model.js";
-<<<<<<< HEAD
-import { Doctor } from "../Models/Doctor.Model.js"; // Import Doctor model
-import jwt from "jsonwebtoken";
-=======
 import { Doctor } from "../Models/Doctor.Model.js";
 import jwt from "jsonwebtoken"
->>>>>>> 9e2c1c31a179dda6cfdf2a4a43d107a9715930bc
 
 export async function verifyPatientToken(req, res, next) {
   const currAccessToken = req.cookies?.accessToken;
