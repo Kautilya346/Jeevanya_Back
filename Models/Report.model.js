@@ -13,6 +13,9 @@ const ReportSchema = new Schema({
   },
   diagnosis: {
     type: String,
+  },
+  symptoms: {
+    type: String,
     required: true,
   },
   date_of_creation: {
