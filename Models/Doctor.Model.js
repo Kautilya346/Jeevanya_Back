@@ -3,15 +3,19 @@ import mongoose,{Schema} from 'mongoose';
 const DoctorSchema = new Schema({
     hospitalId:{
         type:String,
-        required:true
+        //required:true
     },
     name:{
         type:String,
         required:true
     },
-    gender:{
+    password:{
         type:String,
         required:true
+    },
+    gender:{
+        type:String,
+        //required:tru
     },
     phone_number:{
         type:String,
@@ -25,7 +29,7 @@ const DoctorSchema = new Schema({
         type: String,
         default: "",
     },
-    licenceNumber:{
+    licenseNumber:{
         type:String,
         required:true
     },
