@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import authRoutes from "./Routes/User.Routes.js";
 import doctorRoutes from "./Routes/Doctor.Routes.js";
+import reportRoutes from "./Routes/Report.Routes.js";
 
 const app = express();
 dotenv.config();
@@ -30,14 +31,14 @@ app.use(
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"], 
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.options("*", cors());
 
-app.use("/api/auth",authRoutes)
-app.use("/api/doctor",doctorRoutes)
-
+app.use("/api/auth", authRoutes);
+app.use("/api/doctor", doctorRoutes);
+app.use("/api/report", reportRoutes);
 
 // Middleware
 app.use(bodyParser.json());
