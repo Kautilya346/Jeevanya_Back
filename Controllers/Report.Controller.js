@@ -56,6 +56,7 @@ async function setFirstReport(req, res) {
 async function getReport(req, res) {
   try {
     const { reportId } = req.params;
+    console.log(reportId)
     const report = await Report.findById(reportId).populate("doctor patient");
 
     if (!report) {
